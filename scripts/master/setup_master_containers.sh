@@ -1,10 +1,15 @@
 #!/bin/bash
 
 # Install atomic system containers for master node
+# 1.
+# comment out installing master containers with atomic install, atomic install is based on runC.
+#
 #atomic install --system --system-package=no --name kube-apiserver registry.centos.org/centos/kubernetes-sig-apiserver:latest
 #atomic install --system --system-package=no --name kube-scheduler registry.centos.org/centos/kubernetes-sig-scheduler:latest
 #atomic install --system --system-package=no --name kube-controller-manager registry.centos.org/centos/kubernetes-sig-controller-manager:latest
-
+#
+# 2.
+# systemd service conf is using docker engine instead of runC by atomic install as mentioned above.
 cat > /etc/systemd/system/kube-apiserver.service << EOF
 [Unit]
 Description=Kubernetes API Server
