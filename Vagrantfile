@@ -21,6 +21,11 @@ Vagrant.configure(2) do |config|
   # https://github.com/kubernetes/kubernetes/issues/7294
   config.vm.provision "shell", inline: "swapoff -a"
 
+  # Install packages needed for sandbox environment
+  config.vm.provision "shell", inline: "rpm-ostree install git tree vim"
+  config.vm.provision "shell", inline: "rpm-ostree ex livefs"
+
+  # Provision atomic master and node-0[1-4]
   config.vm.define "atomic-master" do |master|
     master.vm.hostname = "atomic-master.local"
     master.vm.network "private_network", ip: "#{$atomic_network}.10"
@@ -29,6 +34,23 @@ Vagrant.configure(2) do |config|
       vb.memory = $atomic_master_mem
       vb.cpus = $atomic_master_vcpu
     end
+
+    # Setup optional local registry for fast docker image pulling
+    config.vm.provision "shell", path:  "scripts/master/setup_local_registry.sh"
+
+    # Configure the etcd service running on master
+    config.vm.provision "shell", path:  "scripts/master/config_etcd.sh"
+
+    # Generate certificate for master authentication
+    config.vm.provision "shell", path:  "scripts/master/generate_cert.sh"
+
+    # Configure general kubernetes settings
+    config.vm.provision "shell", path:  "scripts/master/config_kubernetes.sh"
+
+    # centos atomic master packages are now containerized,
+    # more details:
+    # https://wiki.centos.org/SpecialInterestGroup/Atomic/ContainerizedMaster
+    config.vm.provision "shell", path:  "scripts/master/setup_master_containers"
   end
 
   config.vm.define "atomic-node01" do |node|
@@ -70,4 +92,6 @@ Vagrant.configure(2) do |config|
         vb.cpus = $atomic_node_vcpu
       end
   end
+
+  ####
 end
