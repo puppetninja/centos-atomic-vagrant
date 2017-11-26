@@ -50,7 +50,7 @@ Vagrant.configure(2) do |config|
     # centos atomic master packages are now containerized,
     # more details:
     # https://wiki.centos.org/SpecialInterestGroup/Atomic/ContainerizedMaster
-    config.vm.provision "shell", path:  "scripts/master/setup_master_containers"
+    config.vm.provision "shell", path:  "scripts/master/setup_master_containers.sh"
   end
 
   config.vm.define "atomic-node01" do |node|
