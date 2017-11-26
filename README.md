@@ -1,3 +1,4 @@
 #### Vagrant sandbox environment for centos-atomic setup with kubenetes
 
-vagrant up && vagrant reload
+This is vagrant sandbox environment using shell scripts based on following tutorial
+http://www.projectatomic.io/docs/gettingstarted/
