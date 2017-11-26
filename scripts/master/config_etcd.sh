@@ -1,7 +1,5 @@
 #!/bin/bash
-cat > /etc/etcd/etcd.conf << EOF
-ETCD_LISTEN_CLIENT_URLS="http://0.0.0.0:2379,http://0.0.0.0:4001"
-ETCD_ADVERTISE_CLIENT_URLS="http://0.0.0.0:2379,http://0.0.0.0:4001"
-EOF
+ETCD_CONF="/etc/etcd/etcd.conf"
 
-systemctl restart etcd
+sed -i 's@ETCD_LISTEN_CLIENT_URLS.*@ETCD_LISTEN_CLIENT_URLS="http://0.0.0.0:2379,http://0.0.0.0:4001"@' $ETCD_CONF
+sed -i 's@ETCD_ADVERTISE_CLIENT_URLS.*@ETCD_ADVERTISE_CLIENT_URLS="http://0.0.0.0:2379,http://0.0.0.0:4001"@' $ETCD_CONF

@@ -37,20 +37,24 @@ Vagrant.configure(2) do |config|
 
     # Setup optional local registry for fast docker image pulling
     config.vm.provision "shell", path:  "scripts/master/setup_local_registry.sh"
-
     # Configure the etcd service running on master
     config.vm.provision "shell", path:  "scripts/master/config_etcd.sh"
-
     # Generate certificate for master authentication
     config.vm.provision "shell", path:  "scripts/master/generate_cert.sh"
-
     # Configure general kubernetes settings
     config.vm.provision "shell", path:  "scripts/master/config_kubernetes.sh"
-
+    # Configure apiserver
+    config.vm.provision "shell", path:  "scripts/master/config_apiserver.sh"
+    # Configure controller manager
+    config.vm.provision "shell", path:  "scripts/master/config_controller_manager.sh"
     # centos atomic master packages are now containerized,
     # more details:
     # https://wiki.centos.org/SpecialInterestGroup/Atomic/ContainerizedMaster
     config.vm.provision "shell", path:  "scripts/master/setup_master_containers.sh"
+    # Start master services and etcd on master node
+    config.vm.provision "shell", path:  "scripts/master/start_master_services.sh"
+    # Configure flannel setups
+    config.vm.provision "shell", path:  "scripts/master/setup_flannel.sh"
   end
 
   config.vm.define "atomic-node01" do |node|

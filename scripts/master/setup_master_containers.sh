@@ -66,7 +66,3 @@ ExecStart=/usr/bin/docker run --rm --net=host -v /etc/kubernetes:/etc/kubernetes
 [Install]
 WantedBy=multi-user.target
 EOF
-
-systemctl daemon-reload
-systemctl enable kube-apiserver kube-scheduler kube-controller-manager
-systemctl start kube-apiserver kube-scheduler kube-controller-manager
