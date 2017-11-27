@@ -36,25 +36,25 @@ Vagrant.configure(2) do |config|
     end
 
     # Setup optional local registry for fast docker image pulling
-    config.vm.provision "shell", path:  "scripts/master/setup_local_registry.sh"
+    config.vm.provision "shell", path: "scripts/master/setup_local_registry.sh"
     # Configure the etcd service running on master
-    config.vm.provision "shell", path:  "scripts/master/config_etcd.sh"
+    config.vm.provision "shell", path: "scripts/master/config_etcd.sh"
     # Generate certificate for master authentication
-    config.vm.provision "shell", path:  "scripts/master/generate_cert.sh"
+    config.vm.provision "shell", path: "scripts/master/generate_cert.sh"
     # Configure general kubernetes settings
-    config.vm.provision "shell", path:  "scripts/master/config_kubernetes.sh"
+    config.vm.provision "shell", path: "scripts/master/config_kubernetes.sh"
     # Configure apiserver
-    config.vm.provision "shell", path:  "scripts/master/config_apiserver.sh"
+    config.vm.provision "shell", path: "scripts/master/config_apiserver.sh"
     # Configure controller manager
-    config.vm.provision "shell", path:  "scripts/master/config_controller_manager.sh"
+    config.vm.provision "shell", path: "scripts/master/config_controller_manager.sh"
     # centos atomic master packages are now containerized,
     # more details:
     # https://wiki.centos.org/SpecialInterestGroup/Atomic/ContainerizedMaster
-    config.vm.provision "shell", path:  "scripts/master/setup_master_containers.sh"
+    config.vm.provision "shell", path: "scripts/master/setup_master_containers.sh"
     # Start master services and etcd on master node
-    config.vm.provision "shell", path:  "scripts/master/start_master_services.sh"
+    config.vm.provision "shell", path: "scripts/master/start_master_services.sh"
     # Configure flannel setups
-    config.vm.provision "shell", path:  "scripts/master/setup_flannel.sh"
+    config.vm.provision "shell", path: "scripts/master/setup_flannel.sh"
   end
 
   # TODO: atomic nodes need to be defined in a loop, obviously...
@@ -66,6 +66,13 @@ Vagrant.configure(2) do |config|
         vb.memory = $atomic_node_mem
         vb.cpus = $atomic_node_vcpu
       end
+
+      # Configure docker to use local registry
+      config.vm.provision "shell", path: "scripts/node/config_docker.sh"
+      # Configure flannel for the node
+      config.vm.provision "shell", path: "scripts/node/config_flannel.sh"
+      # Start services running on the node
+      config.vm.provision "shell", path: "scripts/node/start_node_services.sh"
   end
 
   config.vm.define "atomic-node02" do |node|
@@ -76,6 +83,13 @@ Vagrant.configure(2) do |config|
         vb.memory = $atomic_node_mem
         vb.cpus = $atomic_node_vcpu
       end
+
+      # Configure docker to use local registry
+      config.vm.provision "shell", path: "scripts/node/config_docker.sh"
+      # Configure flannel for the node
+      config.vm.provision "shell", path: "scripts/node/config_flannel.sh"
+      # Start services running on the node
+      config.vm.provision "shell", path: "scripts/node/start_node_services.sh"
   end
 
   config.vm.define "atomic-node03" do |node|
@@ -86,6 +100,13 @@ Vagrant.configure(2) do |config|
         vb.memory = $atomic_node_mem
         vb.cpus = $atomic_node_vcpu
       end
+
+      # Configure docker to use local registry
+      config.vm.provision "shell", path: "scripts/node/config_docker.sh"
+      # Configure flannel for the node
+      config.vm.provision "shell", path: "scripts/node/config_flannel.sh"
+      # Start services running on the node
+      config.vm.provision "shell", path: "scripts/node/start_node_services.sh"
   end
 
   config.vm.define "atomic-node04" do |node|
@@ -96,6 +117,13 @@ Vagrant.configure(2) do |config|
         vb.memory = $atomic_node_mem
         vb.cpus = $atomic_node_vcpu
       end
+
+      # Configure docker to use local registry
+      config.vm.provision "shell", path: "scripts/node/config_docker.sh"
+      # Configure flannel for the node
+      config.vm.provision "shell", path: "scripts/node/config_flannel.sh"
+      # Start services running on the node
+      config.vm.provision "shell", path: "scripts/node/start_node_services.sh"
   end
 
   ####
