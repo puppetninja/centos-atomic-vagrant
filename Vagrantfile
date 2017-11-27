@@ -57,6 +57,7 @@ Vagrant.configure(2) do |config|
     config.vm.provision "shell", path:  "scripts/master/setup_flannel.sh"
   end
 
+  # TODO: atomic nodes need to be defined in a loop, obviously...
   config.vm.define "atomic-node01" do |node|
       node.vm.hostname = "atomic-node01.local"
       node.vm.network "private_network", ip: "#{$atomic_network}.11"
