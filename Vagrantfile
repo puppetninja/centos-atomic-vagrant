@@ -71,6 +71,8 @@ Vagrant.configure(2) do |config|
       config.vm.provision "shell", path: "scripts/node/config_docker.sh"
       # Configure flannel for the node
       config.vm.provision "shell", path: "scripts/node/config_flannel.sh"
+      # Configure kubernetes and Kuberlet
+      config.vm.provision "shell", path: "scripts/node/config_kubernetes.sh"
       # Start services running on the node
       config.vm.provision "shell", path: "scripts/node/start_node_services.sh"
   end
@@ -88,6 +90,8 @@ Vagrant.configure(2) do |config|
       config.vm.provision "shell", path: "scripts/node/config_docker.sh"
       # Configure flannel for the node
       config.vm.provision "shell", path: "scripts/node/config_flannel.sh"
+      # Configure kubernetes and Kuberlet
+      config.vm.provision "shell", path: "scripts/node/config_kubernetes.sh"
       # Start services running on the node
       config.vm.provision "shell", path: "scripts/node/start_node_services.sh"
   end
@@ -105,6 +109,8 @@ Vagrant.configure(2) do |config|
       config.vm.provision "shell", path: "scripts/node/config_docker.sh"
       # Configure flannel for the node
       config.vm.provision "shell", path: "scripts/node/config_flannel.sh"
+      # Configure kubernetes and Kuberlet
+      config.vm.provision "shell", path: "scripts/node/config_kubernetes.sh"
       # Start services running on the node
       config.vm.provision "shell", path: "scripts/node/start_node_services.sh"
   end
@@ -122,6 +128,8 @@ Vagrant.configure(2) do |config|
       config.vm.provision "shell", path: "scripts/node/config_docker.sh"
       # Configure flannel for the node
       config.vm.provision "shell", path: "scripts/node/config_flannel.sh"
+      # Configure kubernetes and Kuberlet
+      config.vm.provision "shell", path: "scripts/node/config_kubernetes.sh"
       # Start services running on the node
       config.vm.provision "shell", path: "scripts/node/start_node_services.sh"
   end
