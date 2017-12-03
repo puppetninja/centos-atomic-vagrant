@@ -6,7 +6,7 @@ http://www.projectatomic.io/docs/gettingstarted/
 This is made for virutalbox on macOS only
 
 ##### Usage
-run a `vagrant up` followed by `vagrant reload`
+`vagrant up`
 
 see the following after `vagrant status`
 ```

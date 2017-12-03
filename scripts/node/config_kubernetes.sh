@@ -23,5 +23,5 @@ sed -i "s@KUBE_MASTER.*@KUBE_MASTER='--master=http://192.168.122.10:8080'@" ${KU
 
 # configure the kubelets
 sed -i "s@KUBELET_ADDRESS.*@KUBELET_ADDRESS=\"--address=${KUBELET_ADDR}\"@" ${KUBELET_CONF}
-sed -i "s@KUBELET_HOSTNAME.*@KUBELET_HOSTNAME=\"--hostname_override=${KUBELET_ADDR}\"@" ${KUBELET_CONF}
+sed -i "s@KUBELET_HOSTNAME.*@#KUBELET_HOSTNAME=\"--hostname_override=${KUBELET_ADDR}\"@" ${KUBELET_CONF}
 sed -i "s@KUBELET_API_SERVER.*@KUBELET_API_SERVER=\"--api_servers=http://192.168.122.10:8080\"@" ${KUBELET_CONF}

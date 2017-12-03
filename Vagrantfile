@@ -25,6 +25,8 @@ Vagrant.configure(2) do |config|
   config.vm.provision "shell", inline: "rpm-ostree install git tree vim"
   # I would rather do vagrant reload now...
   config.vm.provision "shell", inline: "rpm-ostree ex livefs"
+  # Add host entries
+  config.vm.provision "shell", path: "scripts/add_hosts.sh"
 
   # Provision atomic master and node-0[1-4]
   config.vm.define "atomic-master" do |master|
@@ -57,7 +59,7 @@ Vagrant.configure(2) do |config|
     # Configure flannel setups
     master.vm.provision "shell", path: "scripts/master/setup_flannel.sh"
     # Install cockpit from centos
-    master.vm.provision "shell", inline: "atomic run cockpit/ws"
+    master.vm.provision "shell", inline: "atomic install cockpit/ws && atomic run cockpit/ws"
   end
 
   # TODO: atomic nodes need to be defined in a loop, obviously...
